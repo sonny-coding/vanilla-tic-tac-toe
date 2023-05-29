@@ -20,11 +20,13 @@ const game = {
 };
 
 document.addEventListener("click", (event) => {
+  // select clicked item
   const target = event.target;
   const isCell = target.classList.contains("grid-cell");
   const isDisabled = target.classList.contains("disabled");
 
   if (isCell && !isDisabled) {
+    // dataset provides read/write access to custom data
     const cellValue = target.dataset.value;
 
     game.xTurn === true
@@ -42,10 +44,13 @@ document.addEventListener("click", (event) => {
       document.querySelector(".game-over-text").textContent = "Draw!";
     }
 
+    // loop through each of the possible winning states
     game.winningStates.forEach((winningState) => {
-      const xWins = winningState.every((state) => game.xState.includes(state));
-      const oWins = winningState.every((state) => game.oState.includes(state));
+      // check if each member in the winning state is in the xState or oState
+      const xWins = winningState.every((item) => game.xState.includes(item));
+      const oWins = winningState.every((item) => game.oState.includes(item));
 
+      // if either x or o wins
       if (xWins || oWins) {
         document
           .querySelectorAll(".grid-cell")
